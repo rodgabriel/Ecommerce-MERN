@@ -11,7 +11,7 @@ const HomePage = () => {
             <Row>
                 {products.map((product) => {
                     return (
-                        <Col sm={12} md={6} lg={4} xl={3}>
+                        <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
                             <Product product={product} />
                         </Col>
                     );
