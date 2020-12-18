@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "E-commerce feito com a stack MERN",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "start": "node server/index",
         "server": "nodemon server/index",
@@ -14,7 +15,10 @@
     "license": "MIT",
     "private": false,
     "dependencies": {
-        "express": "^4.17.1"
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "mongoose": "^5.11.8"
     },
     "devDependencies": {
         "concurrently": "^5.3.0",
