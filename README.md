@@ -8,3 +8,4 @@
 - Nodejs
 - Express
 - Mongodb
+- Mongoose
