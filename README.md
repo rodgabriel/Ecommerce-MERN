@@ -4,7 +4,7 @@
 
 ### Tecnologias utilizadas
 
-- React
+- [react.com](React)
 - Nodejs
 - Express
 - Mongodb
