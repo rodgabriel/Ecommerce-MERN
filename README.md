@@ -5,8 +5,8 @@
 ### Tecnologias utilizadas
 
 - [React](https://reactjs.org/)
-- Nodejs
-- Express
-- Mongodb
+- [Nodejs](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [Mongodb](https://www.mongodb.com/)
   - Mongoose
 - [Bootstrap](https://getbootstrap.com/)
