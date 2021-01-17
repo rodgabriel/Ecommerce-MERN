@@ -31,6 +31,7 @@ const PaymentPage = ({ history }) => {
           <Form.Label as="legend">Select Method</Form.Label>
           <Col>
             <Form.Check
+              className="my-3"
               type="radio"
               label="PayPal or Credit Card"
               id="PayPal"
@@ -39,10 +40,20 @@ const PaymentPage = ({ history }) => {
               checked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
+            <Form.Check
+              className="mb-3"
+              type="radio"
+              label="Stripe"
+              id="Stripe"
+              name="paymentMethod"
+              value="Stripe"
+              disabled
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            ></Form.Check>
           </Col>
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className="mt-3">
           Continue
         </Button>
       </Form>
