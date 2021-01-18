@@ -17,21 +17,27 @@ const PlaceOrderPage = ({ history }) => {
     history.push("/payment");
   }
 
-  // calculate prices
-  cart.itemsPrice = cart.cartItems
-    .reduce((acc, item) => acc + item.price * item.qty, 0)
-    .toFixed(2);
+  //   Calculate prices
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
 
-  cart.shippingPrice = (cart.itemsPrice < 100
-    ? cart.itemsPrice * 0.085
-    : cart.itemsPrice < 300
-    ? cart.itemsPrice * 0.08
-    : cart.itemsPrice < 600
-    ? cart.itemsPrice * 0.06
-    : cart.itemsPrice < 900
-    ? cart.itemsPrice * 0.05
-    : cart.itemsPrice * 0.04
-  ).toFixed(2);
+  cart.itemsPrice = addDecimals(
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  );
+
+  cart.shippingPrice = addDecimals(
+    (cart.itemsPrice < 100
+      ? cart.itemsPrice * 0.085
+      : cart.itemsPrice < 300
+      ? cart.itemsPrice * 0.08
+      : cart.itemsPrice < 600
+      ? cart.itemsPrice * 0.06
+      : cart.itemsPrice < 900
+      ? cart.itemsPrice * 0.05
+      : cart.itemsPrice * 0.04
+    ).toFixed(2)
+  );
 
   cart.totalPrice = (
     Number(cart.itemsPrice) + Number(cart.shippingPrice)

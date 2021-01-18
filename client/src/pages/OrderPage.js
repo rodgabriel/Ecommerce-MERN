@@ -17,6 +17,19 @@ const OrderPage = ({ match }) => {
     dispatch(getOrderDetails(orderId));
   }, [orderId, dispatch]);
 
+  if (!loading) {
+    //   Calculate prices
+    const addDecimals = (num) => {
+      return (Math.round(num * 100) / 100).toFixed(2);
+    };
+
+    order.itemsPrice = addDecimals(
+      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    );
+
+    order.shippingPrice = addDecimals(order.shippingPrice);
+  }
+
   return loading ? (
     <Loader />
   ) : error ? (
@@ -30,18 +43,37 @@ const OrderPage = ({ match }) => {
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
+                <strong>Nome: </strong>
+                {order.user.name}
+              </p>
+              <p>
+                <strong>Email: </strong>
+                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+              </p>
+              <p>
                 <strong>Address: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
                 {order.shippingAddress.postalCode},{" "}
                 {order.shippingAddress.country}
               </p>
+              {order.isDelivered ? (
+                <Message variant="success">Paid on {order.deliveredAt}</Message>
+              ) : (
+                <Message variant="danger">Not delivered</Message>
+              )}
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Payment Method</h2>
+
               <p>
                 <strong>Method: </strong>
-                {order.paymentMethod.paymentMethod}
+                {order.paymentMethod}
               </p>
+              {order.isPaid ? (
+                <Message variant="success">Paid on {order.paidAt}</Message>
+              ) : (
+                <Message variant="danger">Not paid</Message>
+              )}
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Items: </h2>
@@ -90,7 +122,7 @@ const OrderPage = ({ match }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Shipping</Col>
+                  <Col>Entrega</Col>
                   <Col>${order.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
