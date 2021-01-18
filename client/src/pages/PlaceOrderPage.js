@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
+import { createOrder } from "../actions/orderActions";
 
-const PlaceOrderPage = () => {
+const PlaceOrderPage = ({ history }) => {
+  const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart);
+
+  if (!cart.shippingAddress.address) {
+    history.push("/shipping");
+  } else if (!cart.paymentMethod) {
+    history.push("/payment");
+  }
 
   // calculate prices
   cart.itemsPrice = cart.cartItems
@@ -28,7 +37,29 @@ const PlaceOrderPage = () => {
     Number(cart.itemsPrice) + Number(cart.shippingPrice)
   ).toFixed(2);
 
-  const placeOrderHandler = () => {};
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+    }
+    // eslint-disable-next-line
+  }, [history, success]);
+
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod.paymentMethod,
+        itemsPrice: Number(cart.itemsPrice),
+        shippingPrice: Number(cart.shippingPrice),
+        totalPrice: Number(cart.totalPrice),
+      })
+    );
+  };
+
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -109,6 +140,9 @@ const PlaceOrderPage = () => {
                     <strong>${cart.totalPrice}</strong>
                   </Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button

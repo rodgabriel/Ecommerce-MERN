@@ -1,5 +1,4 @@
 import asyncHandler from "express-async-handler";
-import { restart } from "nodemon";
 import Order from "../models/orderModel.js";
 
 // Private POST api/orders => Create a new order
@@ -33,4 +32,18 @@ const addOrderItems = asyncHandler(async (req, res) => {
   }
 });
 
-export { addOrderItems };
+// Private GET api/orders/:id => Get order by id
+const getOrderById = asyncHandler(async (req, res) => {
+  const order = await (await Order.findById(req.params.id)).populate(
+    "user",
+    "name email"
+  );
+  if (order) {
+    res.json(order);
+  } else {
+    res.status(404);
+    throw new Error("Order não encontrada");
+  }
+});
+
+export { addOrderItems, getOrderById };
