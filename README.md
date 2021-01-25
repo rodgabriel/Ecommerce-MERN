@@ -4,6 +4,8 @@
 ### A Fazer:
 - [ ] Painel de Administrador
 - [ ] Adicionar pagamentos pelo Paypal
+- [ ] Página para adicionar reviews aos produtos
+- [ ] Fazer deploy! :)
 
 
 ### Tecnologias utilizadas
