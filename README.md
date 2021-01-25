@@ -1,6 +1,10 @@
 # MERN E-commerce
 
-## Projeto em andamento...
+## Projeto em andamento.
+### A Fazer:
+[] Painel de Administrador
+[] Adicionar pagamentos pelo Paypal
+
 
 ### Tecnologias utilizadas
 
