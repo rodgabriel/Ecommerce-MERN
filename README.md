@@ -1,7 +1,7 @@
 # MERN E-commerce
 
 ![Banner na Home page](./readme-assets/banner-readme.jpg)
-
+![Página de produto individual](./readme-assets/product-readme.jpg)
 ## Projeto em andamento.
 ### A Fazer:
 - [ ] Painel de Administrador
