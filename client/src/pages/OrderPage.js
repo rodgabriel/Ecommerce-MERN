@@ -14,8 +14,10 @@ const OrderPage = ({ match }) => {
   const { order, loading, error } = orderDetails;
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [orderId, dispatch]);
+    if (!order || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
+    }
+  }, [order, orderId, dispatch]);
 
   if (!loading) {
     //   Calculate prices
@@ -41,7 +43,7 @@ const OrderPage = ({ match }) => {
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h2>Entrega</h2>
               <p>
                 <strong>Nome: </strong>
                 {order.user.name}
@@ -51,32 +53,34 @@ const OrderPage = ({ match }) => {
                 <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
               </p>
               <p>
-                <strong>Address: </strong>
+                <strong>Endereço: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
                 {order.shippingAddress.postalCode},{" "}
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
-                <Message variant="success">Paid on {order.deliveredAt}</Message>
+                <Message variant="success">
+                  Entregue em {order.deliveredAt}
+                </Message>
               ) : (
-                <Message variant="danger">Not delivered</Message>
+                <Message variant="warning">Ainda não foi entregue</Message>
               )}
             </ListGroup.Item>
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <h2>Pagamento</h2>
 
               <p>
-                <strong>Method: </strong>
+                <strong>Método: </strong>
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">Pago em {order.paidAt}</Message>
               ) : (
-                <Message variant="danger">Not paid</Message>
+                <Message variant="warning">Aguardando pagamento</Message>
               )}
             </ListGroup.Item>
             <ListGroup.Item>
-              <h2>Items: </h2>
+              <h2>Itens: </h2>
               {order.orderItems.length === 0 ? (
                 <Message>Seu pedido está vazio</Message>
               ) : (
@@ -112,11 +116,11 @@ const OrderPage = ({ match }) => {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2>Seu Pedido</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Items</Col>
+                  <Col>Itens</Col>
                   <Col>${order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
