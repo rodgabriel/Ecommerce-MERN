@@ -2,8 +2,8 @@
 
 ## Projeto em andamento.
 ### A Fazer:
-[] Painel de Administrador
-[] Adicionar pagamentos pelo Paypal
+- [] Painel de Administrador
+- [] Adicionar pagamentos pelo Paypal
 
 
 ### Tecnologias utilizadas
