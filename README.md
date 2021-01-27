@@ -13,7 +13,7 @@
 ### Tecnologias utilizadas
 
 - [React](https://reactjs.org/)
-- [Nodejs](https://nodejs.org/en/)
+- [NodeJS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [Mongodb](https://www.mongodb.com/)
   - Mongoose
